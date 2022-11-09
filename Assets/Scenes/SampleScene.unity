@@ -935,6 +935,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1561771360}
   - component: {fileID: 1561771361}
+  - component: {fileID: 1561771362}
   m_Layer: 0
   m_Name: A*(CENTER)
   m_TagString: Untagged
@@ -975,6 +976,18 @@ MonoBehaviour:
     m_Bits: 64
   gridWorldSize: {x: 40, y: 40}
   nodeRadius: 0.5
+--- !u!114 &1561771362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561771359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9932274e5bd416c95fe433cdae16cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1618465315
 GameObject:
   m_ObjectHideFlags: 0
