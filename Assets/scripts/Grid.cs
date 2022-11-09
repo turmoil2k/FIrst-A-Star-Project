@@ -57,9 +57,9 @@ public class Grid : MonoBehaviour
     public List<Node> GetNeighbourNodes(Node node)
     {
         List<Node> neighbours = new List<Node>();
-        for (int x = -1; x < 2; x++)
+        for (int x = -1; x <= 1; x++)
         {
-            for (int y = -1; y < 2; y++)
+            for (int y = -1; y <=1; y++)
             {
                 if (x == 0 && y == 0)
                 {
@@ -83,20 +83,28 @@ public class Grid : MonoBehaviour
     }
 
 
+    public List<Node> path;
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
 
         if(grid != null)
         {
-            Node playerNode = GetNodeFromWorldPosition(player.position);
+            //Node playerNode = GetNodeFromWorldPosition(player.position);
             foreach (Node n in grid)
             {
                 Gizmos.color = n.walkable ? Color.green : Color.red;
-                if(playerNode == n)
+                if(path != null)
                 {
-                    Gizmos.color = Color.white;
+                    if(path.Contains(n))
+                    {
+                        Gizmos.color = Color.black;
+                    }
                 }
+                //if(playerNode == n)
+                //{
+                //    Gizmos.color = Color.white;
+                //}
                 Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter));// - 0.1f));
             }
         }
