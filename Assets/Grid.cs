@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    //Grid Creation Master Class //test push
+    //Grid Creation Master Class //test push testing author
     public Transform player;
     public LayerMask unwalkableLayerMask;
     public Vector2 gridWorldSize;
