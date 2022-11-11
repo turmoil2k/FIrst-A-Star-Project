@@ -60,7 +60,7 @@ public class Grid : MonoBehaviour
         for (int x = -1; x <= 1; x++)
         {
             for (int y = -1; y <=1; y++)
-            {
+            { 
                 if (x == 0 && y == 0)
                 {
                     continue;
@@ -90,7 +90,7 @@ public class Grid : MonoBehaviour
 
         if(grid != null)
         {
-            //Node playerNode = GetNodeFromWorldPosition(player.position);
+            Node playerNode = GetNodeFromWorldPosition(player.position);
             foreach (Node n in grid)
             {
                 Gizmos.color = n.walkable ? Color.green : Color.red;
@@ -101,11 +101,11 @@ public class Grid : MonoBehaviour
                         Gizmos.color = Color.black;
                     }
                 }
-                //if(playerNode == n)
-                //{
-                //    Gizmos.color = Color.white;
-                //}
-                Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter));// - 0.1f));
+                if(playerNode == n)
+                {
+                    Gizmos.color = Color.white;
+                }
+                Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));  // - 0.1f));
             }
         }
     }
