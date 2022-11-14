@@ -42,10 +42,10 @@ Shader "Unlit/SinWaveULS"
             {
                 v2f o;
                 o.worldPos = mul(unity_ObjectToWorld,v.vertex);
-                //o.vertex = UnityObjectToClipPos(v.vertex);
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 UNITY_TRANSFER_FOG(o,o.vertex);
+                
 
                 return o;
             }
