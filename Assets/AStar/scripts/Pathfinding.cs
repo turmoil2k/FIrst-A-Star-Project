@@ -25,19 +25,20 @@ public class Pathfinding : MonoBehaviour
     void FindPath(Vector3 startPos, Vector3 endPos)
     {
         Stopwatch sw = new Stopwatch();
-        sw.Start();
+        sw.Start();//from 5-4 ms to <4
         Node startNode = grid.GetNodeFromWorldPosition(startPos);
         Node endNode = grid.GetNodeFromWorldPosition(endPos);
 
-        List<Node> openSet = new List<Node>();
+        Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
         HashSet<Node> closedSet = new HashSet<Node>();
 
         openSet.Add(startNode);
 
         while(openSet.Count > 0)
         {
-            Node currentNode = openSet[0];
+            Node currentNode = openSet.RemoveFirst();//openSet[0];
 
+            /*
             for (int i = 1; i < openSet.Count; i++)
             {
                 if (openSet[i].fCost < currentNode.fCost || //whole if is unoptimized
@@ -49,6 +50,8 @@ public class Pathfinding : MonoBehaviour
             }
 
             openSet.Remove(currentNode);
+            */
+
             closedSet.Add(currentNode);
 
             if (currentNode == endNode)
