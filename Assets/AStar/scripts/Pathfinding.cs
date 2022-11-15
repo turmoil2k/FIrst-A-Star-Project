@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Diagnostics;
 
 public class Pathfinding : MonoBehaviour
 {
@@ -15,11 +16,16 @@ public class Pathfinding : MonoBehaviour
 
     private void Update()
     {
-        FindPath(StartTransform.position, EndTransform.position);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            FindPath(StartTransform.position, EndTransform.position);
+        }
     }
 
     void FindPath(Vector3 startPos, Vector3 endPos)
     {
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
         Node startNode = grid.GetNodeFromWorldPosition(startPos);
         Node endNode = grid.GetNodeFromWorldPosition(endPos);
 
@@ -47,6 +53,8 @@ public class Pathfinding : MonoBehaviour
 
             if (currentNode == endNode)
             {
+                sw.Stop();
+                print("Path found in time of ms = " + sw.ElapsedMilliseconds);
                 RetraceFinalPath(startNode, endNode);
                 return;
             }
