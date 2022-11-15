@@ -41,12 +41,22 @@ public class Bot : MonoBehaviour
                 targetIndex++;
                 if(targetIndex >= path.Length)//TARGET? ERROR
                 {
+                    targetIndex = 0;
+                    path = new Vector3[0];
                     yield break;
                 }
                 currentWaypoint = path[targetIndex];
             }
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint + Vector3.up, speed * Time.deltaTime);
             yield return null;
+        }
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
         }
     }
 
