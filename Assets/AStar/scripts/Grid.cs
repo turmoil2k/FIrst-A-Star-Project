@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    public bool onlyDisplayPathGizmos;
+    public bool displayGridGizmos;
     //Grid Creation Master Class
     public Transform player;
     public LayerMask unwalkableLayerMask;
@@ -16,7 +16,7 @@ public class Grid : MonoBehaviour
     int gridsizeX, gridsizeY;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         nodeDiameter = nodeRadius * 2;
         gridsizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
@@ -96,40 +96,21 @@ public class Grid : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
-        if(onlyDisplayPathGizmos == true)
+
+        if (grid != null && displayGridGizmos == true)
         {
-            if(path != null)
+            Node playerNode = GetNodeFromWorldPosition(player.position);
+            foreach (Node n in grid)
             {
-                foreach(Node n in path)
+                Gizmos.color = n.walkable ? Color.green : Color.red;
+                if (playerNode == n)
                 {
-                    Gizmos.color = Color.black;
-                    Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
+                    Gizmos.color = Color.white;
                 }
+                Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));  // - 0.1f));
             }
         }
-        else
-        {
-            if (grid != null)
-            {
-                Node playerNode = GetNodeFromWorldPosition(player.position);
-                foreach (Node n in grid)
-                {
-                    Gizmos.color = n.walkable ? Color.green : Color.red;
-                    if (path != null)
-                    {
-                        if (path.Contains(n))
-                        {
-                            Gizmos.color = Color.black;
-                        }
-                    }
-                    if (playerNode == n)
-                    {
-                        Gizmos.color = Color.white;
-                    }
-                    Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));  // - 0.1f));
-                }
-            }
-        }
+
     }
 
 
