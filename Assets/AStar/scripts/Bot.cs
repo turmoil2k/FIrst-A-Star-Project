@@ -65,6 +65,7 @@ public class Bot : MonoBehaviour
             waypointXZ.y = 0;
             if (transformXZ == waypointXZ)//literally inside the node pixel perfect lets add distance
             //if(Vector3.Distance(transform.position,currentWaypoint) <= 1f) // if distance is implemented obstacle avoidance must also be implemented.
+            //if (transform.position == currentWaypoint)
             {
                 targetIndex++;
                 if(targetIndex >= path.Length)//TARGET? ERROR
