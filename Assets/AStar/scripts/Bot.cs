@@ -26,10 +26,17 @@ public class Bot : MonoBehaviour
     IEnumerator FollowPath()
     {
         Vector3 currentWaypoint = path[0];
+        Vector3 transformXZ;
+        Vector3 waypointXZ;
 
         while (true)
         {
-            if (transform.position == currentWaypoint)
+            transformXZ = transform.position;
+            waypointXZ = currentWaypoint;
+            transformXZ.y = 0;
+            waypointXZ.y = 0;
+            if (transformXZ == waypointXZ)//literally inside the node pixel perfect lets add distance
+            //if(Vector3.Distance(transform.position,currentWaypoint) <= 1f) // if distance is implemented obstacle avoidance must also be implemented.
             {
                 targetIndex++;
                 if(targetIndex >= path.Length)//TARGET? ERROR
@@ -38,7 +45,7 @@ public class Bot : MonoBehaviour
                 }
                 currentWaypoint = path[targetIndex];
             }
-            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint + Vector3.up, speed * Time.deltaTime);
             yield return null;
         }
     }
@@ -50,14 +57,16 @@ public class Bot : MonoBehaviour
             for (int i = targetIndex; i < path.Length; i++)
             {
                 Gizmos.color = Color.black;
-                Gizmos.DrawWireCube(path[i], Vector3.one);
+                Gizmos.DrawCube(path[i], new Vector3(0.9f,2.5f,0.9f));
                 if(i == targetIndex)
                 {
-                    Gizmos.DrawLine(transform.position, path[i]);
+                    Gizmos.color = Color.cyan;
+                    Gizmos.DrawLine(transform.position + Vector3.up, path[i] + Vector3.up);
                 }
                 else
                 {
-                    Gizmos.DrawLine(path[i - 1], path[i]);
+                    Gizmos.color = Color.yellow;
+                    Gizmos.DrawLine(path[i - 1] + Vector3.up, path[i] + Vector3.up);
                 }
             }
         }
