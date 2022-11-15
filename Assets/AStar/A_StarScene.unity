@@ -675,6 +675,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 316405639}
   speed: 10
+  rotSpeed: 5
 --- !u!136 &385786725
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -863,6 +864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 316405639}
   speed: 10
+  rotSpeed: 5
 --- !u!136 &437007067
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3021,7 +3023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9414301f1dc424c12b3787716e3bb3a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayGridGizmos: 1
+  displayGridGizmos: 0
   player: {fileID: 708156538}
   unwalkableLayerMask:
     serializedVersion: 2
@@ -3263,6 +3265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 316405639}
   speed: 10
+  rotSpeed: 5
 --- !u!1 &1618465315
 GameObject:
   m_ObjectHideFlags: 0
@@ -3701,6 +3704,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 316405639}
   speed: 10
+  rotSpeed: 5
 --- !u!136 &1901364096
 CapsuleCollider:
   m_ObjectHideFlags: 0

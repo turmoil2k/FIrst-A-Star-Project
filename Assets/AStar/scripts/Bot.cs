@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class Bot : MonoBehaviour
 {
+    const float minPathUpdateTime = .2f;
+    const float pathUpdateMoveThreshold = .5f;
+
     public Transform target;
     [SerializeField] float speed = 5f;
+    [SerializeField] float rotSpeed = 5f;
     Vector3[] path;
     int targetIndex;
 
     private void Start()
     {
-        PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+        //PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+        StartCoroutine(UpdatePath());
     }
     public void OnPathFound(Vector3[] newPath, bool pathSuccess)
     {
@@ -20,6 +25,29 @@ public class Bot : MonoBehaviour
             path = newPath;
             StopCoroutine("FollowPath");
             StartCoroutine("FollowPath");
+        }
+    }
+
+    IEnumerator UpdatePath()
+    {
+        if(Time.timeSinceLevelLoad < 0.3f)
+        {
+            yield return new WaitForSeconds(0.3f);
+        }
+        PathRequestManager.RequestPath(transform.position,
+                                            target.position, OnPathFound);
+        float sqrMoveThreshhold = pathUpdateMoveThreshold * pathUpdateMoveThreshold;
+        Vector3 targetPosOld = target.position;
+
+        while (true)
+        {
+            yield return new WaitForSeconds(minPathUpdateTime);
+            if ((target.position - targetPosOld).sqrMagnitude > sqrMoveThreshhold)
+            {
+                PathRequestManager.RequestPath(transform.position,
+                                            target.position, OnPathFound);
+                targetPosOld = target.position;
+            }
         }
     }
 
@@ -47,6 +75,10 @@ public class Bot : MonoBehaviour
                 }
                 currentWaypoint = path[targetIndex];
             }
+            Vector3 targetDir = (currentWaypoint + Vector3.up) - transform.position;
+            float step = rotSpeed * Time.deltaTime;
+            Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDir);
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint + Vector3.up, speed * Time.deltaTime);
             yield return null;
         }
